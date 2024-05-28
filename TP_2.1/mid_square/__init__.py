@@ -4,6 +4,7 @@ import os
 class  middleSquareGenerator:
   def __init__(self, seed: int = None):
     self.ciclo = 0
+    self.valores = []
     if seed == None or seed <= 1 : #si no se pasa seed se toma el pid del proceso y el tiempo actual
       self.seed = int(str(int(os.getpid() * time.time())).zfill(8)[:8])
       self.first_seed = self.seed
@@ -15,6 +16,7 @@ class  middleSquareGenerator:
     if self.ciclo == 0: 
       self.ciclo += 1
       self.seed = self.seed * self.seed
+      self.valores.append([self.ciclo, self.seed])
       return self.seed
     self.seed = str(self.seed)
     if self.seed.__len__() != 8:
@@ -22,6 +24,7 @@ class  middleSquareGenerator:
     self.seed = int(self.seed[2:6])
     self.seed = self.seed * self.seed
     self.ciclo += 1
+    self.valores.append([self.ciclo, self.seed])
     return self.seed
   
   def next_float(self):

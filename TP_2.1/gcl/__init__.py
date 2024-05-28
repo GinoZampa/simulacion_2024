@@ -2,9 +2,11 @@ import time
 import os
 
 class  GeneradorLinealCongruencialMixto:
-  def __init__(self, seed: int = int(os.getpid() * time.time()), 
+  def __init__(self, seed: int = int(os.getpid() + time.time()), 
                a: int =1664525, c: int =1013904223, m: int=2**32):
+    print(seed)
     self.ciclos = 0 
+    self.valores = []
     self.parametros(seed, a, c, m)
 
   def parametros(self, seed, a, c, m):
@@ -17,6 +19,7 @@ class  GeneradorLinealCongruencialMixto:
   def next(self):
     self.seed = (self.a * self.seed + self.c) % self.m
     self.ciclos += 1
+    self.valores.append([self.ciclos, self.seed])
     return self.seed
   
   def next_float(self):
