@@ -2,8 +2,10 @@ import time
 import os
 
 class  GeneradorLinealCongruencialMixto:
-  def __init__(self, seed=int(os.getpid() + time.time()), a=1664525, c=1013904223, m=2**32):
-        self.parametros(seed, a, c, m)
+  def __init__(self, seed: int = int(os.getpid() * time.time()), 
+               a: int =1664525, c: int =1013904223, m: int=2**32):
+    self.ciclos = 0 
+    self.parametros(seed, a, c, m)
 
   def parametros(self, seed, a, c, m):
     #se necesita primero m para poder validar los otros parametros
@@ -12,12 +14,13 @@ class  GeneradorLinealCongruencialMixto:
     self.set_a(a)
     self.set_c(c)    
   
-  def next_seed(self):
+  def next(self):
     self.seed = (self.a * self.seed + self.c) % self.m
+    self.ciclos += 1
     return self.seed
   
   def next_float(self):
-    return self.next_seed() / self.m
+    return self.next() / self.m
   
   def next_float_range(self, min, max):
     if min >= max:
@@ -33,6 +36,7 @@ class  GeneradorLinealCongruencialMixto:
     if seed < 0 or seed >= self.m or seed == None:
       raise ValueError("Rango de seed: [0,m)")
     self.seed = seed
+    self.first_seed = self.seed
   def set_a(self, a):
     if  a < 0 or a >= self.m or a == None:
       raise ValueError("Rango de a [0,m)")
@@ -46,6 +50,9 @@ class  GeneradorLinealCongruencialMixto:
       raise ValueError("Rango de m (0,inf)")
     self.m = m
   
+  def __repr__(self):
+    return "GLC: a={} c={} m={} seed={} \nciclo={} number={}".format(self.a, self.c, self.m, self.first_seed, self.ciclos, self.seed)
+
   def __str__(self):
-    return "GLC: a={} c={} m={} seed={}".format(self.a, self.c, self.m, self.seed)
+    return "ciclo={} number={}".format(self.ciclos, self.seed)
   
