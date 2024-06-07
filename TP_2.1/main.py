@@ -10,10 +10,10 @@ import os
 import argparse
 
 parser = argparse.ArgumentParser(description="Simulador de ruleta")
-parser.add_argument("-c", default=30000, type=int, help="Número de pruebas")
+parser.add_argument("-n", default=30000, type=int, help="Número de pruebas")
 parser.add_argument("-s", default=1000, type=int, help="seed")
 args = parser.parse_args()
-largo_secuencia = args.c
+largo_secuencia = args.n
 seed = args.s
 
 if largo_secuencia < 1:
@@ -21,7 +21,7 @@ if largo_secuencia < 1:
     exit()
 if largo_secuencia <= 5000:
     size_puntos_graficos = 15
-if largo_secuencia > 5000 and args.s <= 20000:
+if largo_secuencia > 5000 and largo_secuencia <= 20000:
     size_puntos_graficos = 10
 if largo_secuencia > 20000:
     size_puntos_graficos = 3
