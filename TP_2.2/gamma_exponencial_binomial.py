@@ -165,7 +165,6 @@ def gamma():
   graficar_dispersion(sec_g, "Numpy-Gamma")
   graficar_histograma([sec_g, datos_gamma], "Gamma-comparacion")
 
-
 def binomial():
   #ensayos(x) = 10, probabilidad(p) = 0.5, tamaño = 10000
   sec_b = np.random.binomial(20, 0.1, largo_secuencia)
